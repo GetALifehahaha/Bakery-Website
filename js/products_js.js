@@ -19,8 +19,10 @@ function loadProducts(){
                         <td>${capitalize(product.product_category)}</td>                    
                         <td>${product.stock_quantity}</td>                    
                         <td>${product.product_price}</td>
-                        <td><button class="edit-btn" onclick="openEditModal(${product.product_ID}, '${product.product_name}', '${product.product_description}', '${product.product_category}', '${product.stock_quantity}', '${product.product_price}')">Edit</button>
-                            <button class="delete-btn" onclick="deleteProduct(${product.product_ID})">Delete</button></td>                    
+                        <td><div class="action-buttons">
+                                <button class="edit-btn" onclick="openEditModal(${product.product_ID}, '${product.product_name}', '${product.product_description}', '${product.product_category}', '${product.stock_quantity}', '${product.product_price}')">Edit</button>
+                                <button class="delete-btn" onclick="deleteProduct(${product.product_ID})">Delete</button></td>                    
+                            </div>
                     </tr>
                 `
             })
@@ -34,11 +36,11 @@ function capitalize(string){
 };
 
 function addProduct(){
-    let this_product_name = document.getElementById("product_name").value.trim();
-    let this_product_description = document.getElementById("product_description").value.trim();
-    let this_product_category = document.getElementById("product_category").value.trim();
-    let this_stock_quantity = document.getElementById("stock_quantity").value.trim();
-    let this_product_price = document.getElementById("product_price").value.trim();
+    let this_product_name = document.getElementById("productName").value.trim();
+    let this_product_description = document.getElementById("productDescription").value.trim();
+    let this_product_category = document.getElementById("productCategory").value.trim();
+    let this_stock_quantity = document.getElementById("stockQuantity").value.trim();
+    let this_product_price = document.getElementById("productPrice").value.trim();
     
     if (!this_product_name || !this_product_description || !this_product_category || !this_stock_quantity || !this_product_price){
         alert("Please do not leave any fields blank. AND PLEASE DO NOT REDEEM THE CARD, MA'AM!!")
@@ -66,12 +68,12 @@ function addProduct(){
 };
 
 function updateProduct(){
-    let this_product_ID = document.getElementById("edit_product_ID").value.trim();
-    let this_product_name = document.getElementById("edit_product_name").value.trim();
-    let this_product_description = document.getElementById("edit_product_description").value.trim();
-    let this_product_category = document.getElementById("edit_product_category").value.trim();
-    let this_stock_quantity = document.getElementById("edit_stock_quantity").value.trim();
-    let this_product_price = document.getElementById("edit_product_price").value.trim();
+    let this_product_ID = document.getElementById("editProductID").value.trim();
+    let this_product_name = document.getElementById("editProductName").value.trim();
+    let this_product_description = document.getElementById("editDescription").value.trim();
+    let this_product_category = document.getElementById("editCategory").value.trim();
+    let this_stock_quantity = document.getElementById("editStockQuantity").value.trim();
+    let this_product_price = document.getElementById("editProductPrice").value.trim();
     
     if (!this_product_ID || !this_product_name || !this_product_description || !this_product_category || !this_stock_quantity || !this_product_price){
         alert("WHY DID YOU REMOVE IT!!!");
@@ -139,40 +141,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-let addProductModal = document.querySelector("#addProductModal");
+let addProductModal = document.querySelector("#addModal");
 
-function openAddProductModal(){
+function openAddModal(){
     addProductModal.classList.toggle("show")
 };
 
-function closeAddProductModal(){
-    document.getElementById("product_name").value = "";
-    document.getElementById("product_description").value = "";
-    document.getElementById("product_category").value = "";
-    document.getElementById("stock_quantity").value = "";
-    document.getElementById("product_price").value = "";
+function closeAddModal(){
+    document.getElementById("productName").value = "";
+    document.getElementById("productDescription").value = "";
+    document.getElementById("productCategory").value = "";
+    document.getElementById("stockQuantity").value = "";
+    document.getElementById("productPrice").value = "";
     addProductModal.classList.toggle("show");
 };
 
 let editModal = document.querySelector("#editModal");
 
 function openEditModal(product_ID, product_name, product_description, product_category, stock_quantity, product_price){
-    document.getElementById("edit_product_ID").value = product_ID;
-    document.getElementById("edit_product_name").value = product_name;
-    document.getElementById("edit_product_description").value = product_description;
-    document.getElementById("edit_product_category").value = product_category;
-    document.getElementById("edit_stock_quantity").value = stock_quantity;
-    document.getElementById("edit_product_price").value = product_price;
+    document.getElementById("editProductID").value = product_ID;
+    document.getElementById("editProductName").value = product_name;
+    document.getElementById("editDescription").value = product_description;
+    document.getElementById("editCategory").value = product_category;
+    document.getElementById("editStockQuantity").value = stock_quantity;
+    document.getElementById("editProductPrice").value = product_price;
     editModal.classList.toggle("show");
 };
 
 function closeEditModal(){
     editModal.classList.toggle("show");
-    document.getElementById("edit_product_name").value = "";
-    document.getElementById("edit_product_description").value = "";
-    document.getElementById("edit_product_category").value = "";
-    document.getElementById("edit_stock_quantity").value = "";
-    document.getElementById("edit_product_price").value = "";
+    document.getElementById("editProductID").value = "";
+    document.getElementById("editProductName").value = "";
+    document.getElementById("editDescription").value = "";
+    document.getElementById("editCategory").value = "";
+    document.getElementById("editStockQuantity").value = "";
+    document.getElementById("editProductPrice").value = "";
 };
 
 // , , product_description, product_category, stock_quantity, product_price

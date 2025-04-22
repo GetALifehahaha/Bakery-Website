@@ -1,0 +1,49 @@
+CREATE DATABASE `bakerykey_db;`  
+USE `bakerykey_db`;
+
+CREATE TABLE `customers` (
+  `customer_ID` int PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL
+);
+
+CREATE TABLE `employees` (
+  `employee_ID` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `employee_name` varchar(100) NOT NULL,
+  `employee_occupation` varchar(100) NOT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `employee_hire_date` date NOT NULL
+);
+
+CREATE TABLE `orders` (
+  `order_ID` int PRIMARY KEY AUTO_INCREMENT,
+  `order_date` date NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `order_status` enum('completed','in progress','cancelled') DEFAULT NULL,
+  `customer_ID_FK` int(11) NOT NULL,
+  FOREIGN KEY(customer_ID_FK) REFERENCES customers(customer_ID)
+);
+
+CREATE TABLE `orderitems` (
+  `order_item_ID` int PRIMARY KEY AUTO_INCREMENT,
+  `quantity` int(11) NOT NULL,
+  `subtotal` int(11) NOT NULL,
+  `order_ID_FK` int(11) NOT NULL,
+  `product_ID_FK` int(11) NOT NULL,
+  `employee_ID_FK` int(11) NOT NULL,
+  FOREIGN KEY(employee_ID_FK) REFERENCES employees(employee_ID),
+  FOREIGN KEY(order_ID_FK) REFERENCES orders(order_ID),
+  FOREIGN KEY(product_ID_FK) REFERENCES products(product_ID)
+);
+
+CREATE TABLE `products` (
+  `product_ID` int PRIMARY KEY AUTO_INCREMENT,
+  `product_Name` varchar(50) NOT NULL,
+  `product_description` text NOT NULL,
+  `product_category` enum('bread','pastry','specials','drinks') NOT NULL,
+  `stock_quantity` int(11) NOT NULL,
+  `product_Price` decimal(10,2) UNSIGNED NOT NULL
+);
+

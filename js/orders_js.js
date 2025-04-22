@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', loadOrderHistory);
-document.addEventListener('DOMContentLoaded', loadProductTable);
+// document.addEventListener('DOMContentLoaded', loadProductTable);
 
 // gets today's date. too lazy to make it a function so mehhhh
 let preDate = new Date();
@@ -52,7 +52,7 @@ function loadOrderHistory(){
     .then(response => response.json())
     .then(data => {
 
-        let orderTableBody = document.getElementById("orderTableBody");
+        let orderTableBody = document.querySelector("#orderTableBody");
         orderTableBody.innerHTML = ""
 
         if (data.status === "success"){
@@ -60,16 +60,27 @@ function loadOrderHistory(){
                 orderTableBody.innerHTML += `
                     <tr>
                         <td>${ord['order_ID']}</td>
-                        <td>${ord['product_name']}</td>
                         <td>${ord['order_date']}</td>
-                        <td>${ord['subtotal']}</td>
-                        <td>${capitalize(ord['order_status'])}</td>
                         <td>${ord['customer_name']}</td>
+                        <td>${ord['product_name'].replace(/\n/g, '<br>')}</td>
+                        <td>${ord['quantity'].replace(/\n/g, '<br>')}</td>
+                        <td>${ord['subtotal'].replace(/\n/g, '<br>')}</td>
+                        <td>${'₱ ' + ord['total_amount']}</td>
                         <td>${ord['employee_name']}</td>
-                        <td><button onclick="completeOrder(${ord.order_ID})">Complete</button>
-                            <button onclick="cancelOrder(${ord.order_ID})">Cancel</button></td>
+                        <td id="${ord['order_status']}">${capitalize(ord['order_status'])}</td>
                     </tr>
                 `
+                if (!finishedStatus.includes(ord['order_status'])){
+                    console.log("haja")
+                    orderTableBody.lastElementChild.innerHTML += `
+                        <td><button class="save-btn" onclick="completeOrder(${ord.order_ID})">Complete</button>
+                        <button class="delete-btn" onclick="cancelOrder(${ord.order_ID})">Cancel</button></td>
+                    `
+                } else {
+                    orderTableBody.lastElementChild.innerHTML += `
+                        <td>:></td>
+                    `
+                }
             })
         } else {
             orderTableBody.innerHTML += `
@@ -281,4 +292,20 @@ function calculateOrderRowSubTotal(product_ID, quantity, product_price){
 function deleteProductOrder(product_ID){
     let productRow = document.querySelector("#productOrderBody #id"+product_ID);
     productRow.remove();
+}
+
+function filterOrders(){
+    let searchDate = document.getElementById("searchBox").value.toLowerCase();
+    let filterStatus = document.getElementById("filterStatus").value.toLowerCase();
+    let rows = document.querySelectorAll("#orderTableBody tr");
+    
+    rows.forEach(row => {
+        let productDate = row.children[1].textContent.toLowerCase();
+        let status = row.children[8].textContent.toLowerCase();
+
+        let matchSearch = productDate.includes(searchDate);
+        let matchesFilterStatus = filterStatus === "" || status === filterStatus;
+
+        row.style.display = (matchSearch && matchesFilterStatus) ? "" : "none";
+    })
 }
