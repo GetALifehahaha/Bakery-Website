@@ -26,6 +26,16 @@ CREATE TABLE `orders` (
   FOREIGN KEY(customer_ID_FK) REFERENCES customers(customer_ID)
 );
 
+CREATE TABLE `products` (
+  `product_ID` int PRIMARY KEY AUTO_INCREMENT,
+  `product_Name` varchar(50) NOT NULL,
+  `product_description` text NOT NULL,
+  `product_category` enum('bread','pastry','specials','drinks') NOT NULL,
+  `stock_quantity` int(11) NOT NULL,
+  `product_Price` decimal(10,2) UNSIGNED NOT NULL
+);
+
+
 CREATE TABLE `orderitems` (
   `order_item_ID` int PRIMARY KEY AUTO_INCREMENT,
   `quantity` int(11) NOT NULL,
@@ -38,12 +48,4 @@ CREATE TABLE `orderitems` (
   FOREIGN KEY(product_ID_FK) REFERENCES products(product_ID)
 );
 
-CREATE TABLE `products` (
-  `product_ID` int PRIMARY KEY AUTO_INCREMENT,
-  `product_Name` varchar(50) NOT NULL,
-  `product_description` text NOT NULL,
-  `product_category` enum('bread','pastry','specials','drinks') NOT NULL,
-  `stock_quantity` int(11) NOT NULL,
-  `product_Price` decimal(10,2) UNSIGNED NOT NULL
-);
 
