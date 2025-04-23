@@ -17,7 +17,7 @@ $employees = new Employees();
 
 // Parse request path
 $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$base_path = '/BakeryKey/api/employees_api.php'; // Adjust this to match your actual base path
+$base_path = '/Bakery-Website/api/employees_api.php'; // Adjust this to match your actual base path
 
 // Extract ID from URI if present
 $id = null;

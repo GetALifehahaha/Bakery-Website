@@ -17,35 +17,6 @@ if (d.length < 2){
 let fullDate = [y, m, d].join('-');
 
 //start of functionsssssssssssss
-function loadProductTable(){
-    fetch('../api/products_api.php')
-    .then(response => response.json())
-    .then(data => {
-        let productTableBody = document.querySelector("#productTableBody");
-        productTableBody.innerHTML = "";
-
-        if (data.status === "success"){
-            data.product.forEach(prod => {
-                productTableBody.innerHTML += `
-                    <tr>
-                        <td>${prod.product_ID}</td>
-                        <td>${prod.product_name}</td>
-                        <td>${capitalize(prod.product_category)}</td>
-                        <td>${prod.stock_quantity}</td>
-                        <td>${prod.product_price}</td>
-                        <td><button onclick="addProductOrder(${prod.product_ID}, '${prod.product_name}', '${capitalize(prod.product_category)}', ${prod.stock_quantity}, ${prod.product_price})">Add</button></td>
-                    </tr>
-                `
-            })
-        } else {
-            productTableBody.innerHTML = `
-                <tr>
-                    <td>Product Table Empty</td>
-                </tr>
-            `
-        }
-    })
-}
 
 function loadOrderHistory(){
     fetch('../api/order_api.php')
@@ -133,7 +104,6 @@ function addOrder(){
                 .then(response => response.json())
                 .then(resp => {
                     alert(resp.message);
-                    loadOrderHistory();
                     loadProductTable();
                     clearProductOrder();
                 })
@@ -145,35 +115,6 @@ function addOrder(){
     })
 }
 
-
-function addProductOrder(product_ID, product_name, product_category, stock_quantity, product_price){
-    if (stock_quantity == 0){
-        return;
-    }
-
-    let productRows = document.querySelectorAll("#productOrderBody tr");
-
-    for (let i = 0; i<productRows.length; i++){
-        if (productRows[i].children[0].textContent == product_ID){
-            return;
-        }
-    }
-
-    let productOrderBody = document.querySelector("#productOrderBody");
-
-    productOrderBody.innerHTML += `
-                    <tr id="id${product_ID}">
-                        <td>${product_ID}</td>
-                        <td>${product_name}</td>
-                        <td>${product_category}</td>
-                        <td id="amount">1</td>
-                        <td id="subtotal">${product_price}</td>
-                        <td><button onclick="deleteProductOrder(${product_ID})">REMOVE</button></td>
-                        <td><button onclick="addAmount(${product_ID}, ${stock_quantity}, ${product_price})">+</button></td>
-                        <td><button onclick="removeAmount(${product_ID}, ${product_price})">-</button></td>
-                    </tr 
-                    `
-}
 
 const finishedStatus = ['cancelled', 'completed'];
 
@@ -246,53 +187,16 @@ function capitalize(string){
 }
 
 function clearProductOrder(){
-    let productOrderBody = document.querySelector("#productOrderBody");
+    let productOrderBody = document.querySelector("#cartTableBody");
     productOrderBody.innerHTML = "";
 }
 
-function addAmount(product_ID, stock_quantity, product_price){
-    let productRow = document.querySelector("#productOrderBody #id"+product_ID);
-    let maxQuantity = stock_quantity;
-    let currentQuantityRow = productRow.querySelector("#amount");
-    let currentQuantity = currentQuantityRow.textContent
-
-    if (currentQuantity < maxQuantity){
-        currentQuantity++;
-        currentQuantityRow.textContent = currentQuantity;
-    }
-
-    calculateOrderRowSubTotal(product_ID, currentQuantity, product_price);
-}
-
-function removeAmount(product_ID, product_price){
-    let productRow = document.querySelector("#productOrderBody #id"+product_ID);
-    let currentQuantityRow = productRow.querySelector("#amount");
-    let currentQuantity = currentQuantityRow.textContent;
-
-    if (currentQuantity > 1){
-        currentQuantity--;
-        currentQuantityRow.textContent = currentQuantity;
-    } else if (currentQuantity == 1){
-        deleteProductOrder(product_ID);
-        return;
-    }
-
-    calculateOrderRowSubTotal(product_ID, currentQuantity, product_price);
-    
-}
-
-function calculateOrderRowSubTotal(product_ID, quantity, product_price){
-    let productRow = document.querySelector("#productOrderBody #id"+product_ID);
-    let subTotalRow = productRow.querySelector("#subtotal");
-
-    subTotalRow.textContent = quantity * product_price;
-}
 
 
-function deleteProductOrder(product_ID){
-    let productRow = document.querySelector("#productOrderBody #id"+product_ID);
-    productRow.remove();
-}
+
+
+
+
 
 function filterOrders(){
     let searchDate = document.getElementById("searchBox").value.toLowerCase();

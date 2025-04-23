@@ -18,7 +18,7 @@ function loadProducts(){
                         <td>${product.product_description}</td>                    
                         <td>${capitalize(product.product_category)}</td>                    
                         <td>${product.stock_quantity}</td>                    
-                        <td>${product.product_price}</td>
+                        <td>${'₱ ' + product.product_price}</td>
                         <td><div class="action-buttons">
                                 <button class="edit-btn" onclick="openEditModal(${product.product_ID}, '${product.product_name}', '${product.product_description}', '${product.product_category}', '${product.stock_quantity}', '${product.product_price}')">Edit</button>
                                 <button class="delete-btn" onclick="deleteProduct(${product.product_ID})">Delete</button></td>                    

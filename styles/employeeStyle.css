@@ -119,24 +119,18 @@ h1 {
     display: flex;
     flex-direction: column;
 }
-.main-grid{
+
+.main-grid {
     padding: .5rem;
 }
-.header{
+
+.header {
     display: flex;
     justify-content: space-between;
-
-    .search-filter{
-        min-width: 50%;
-        display: flex;
-        gap: 12px;
-
-        input, select, button{
-            flex-grow: 1;
-            padding: 5px 2rem;
-        }
-    }
+    align-items: center;
+    margin-bottom: 20px;
 }
+
 .top-nav {
     background-color: #292929;
     color: #fff;
@@ -183,108 +177,7 @@ h1 {
     color: #fff;
 }
 
-/* Page Content */
-.content {
-    padding: 20px;
-    flex: 1;
-}
-
-.page-title {
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-/* Dashboard Cards */
-.dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.card {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    display: flex;
-    align-items: center;
-}
-
-.card-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    font-size: 24px;
-}
-
-.card-icon.sales {
-    background-color: rgba(13, 110, 253, 0.1);
-    color: #0d6efd;
-}
-
-.card-icon.orders {
-    background-color: rgba(255, 159, 67, 0.1);
-    color: #ff9f43;
-}
-
-.card-icon.customers {
-    background-color: rgba(40, 199, 111, 0.1);
-    color: #28c76f;
-}
-
-.card-icon.products {
-    background-color: rgba(234, 84, 85, 0.1);
-    color: #ea5455;
-}
-
-.card-info h3 {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 5px;
-}
-
-.card-value {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.card-change {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-}
-
-.card-change span {
-    color: #888;
-    margin-left: 4px;
-}
-
-.card-change.positive {
-    color: #28c76f;
-}
-
-.card-change.negative {
-    color: #ea5455;
-}
-
-.card-change.neutral {
-    color: #888;
-}
-
 /* Tables */
-.dashboard-tables {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    gap: 20px;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -337,12 +230,10 @@ tr:hover {
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
-    margin-bottom: 20px;
     font-size: 14px;
-    width: 20%;
 }
 
 /* Modal */

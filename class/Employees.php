@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../database/Database.php';
+require_once __DIR__ . '/../class/Database.php';
 
 class Employees {
     private $db;
@@ -106,6 +106,7 @@ class Employees {
 
     // Delete employee
     public function deleteEmployee($id) {
+        
         if (!$this->getEmployee($id)) {
             return false;
         }

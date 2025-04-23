@@ -17,7 +17,7 @@ $customers = new Customers();
 
 // Parse request path
 $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$base_path = '/BakeryKey/api/customers_api.php'; // Adjusted to match customer API endpoint
+$base_path = '/Bakery-Website/api/customers_api.php'; // Adjusted to match customer API endpoint
 
 // Extract ID from URI if present
 $id = null;
